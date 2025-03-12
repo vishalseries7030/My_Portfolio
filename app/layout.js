@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar"; // Navbar ko import karo
 import "./globals.css";
-import Footer from "../components/Footer"; // ✅ Import Footer
+// import Footer from "../components/Footer"; // ✅ Import Footer
 
 
 export default function RootLayout({ children }) {
@@ -9,7 +9,7 @@ export default function RootLayout({ children }) {
       <body>
         <Navbar />
         <main>{children}</main>
-        <Footer /> {/* ✅ Global Footer */}
+        {/* <Footer /> ✅ Global Footer */}
       </body>
     </html>
   );
