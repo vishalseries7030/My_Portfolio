@@ -216,47 +216,73 @@ export default function About() {
           className="grid md:grid-cols-2 gap-8 mt-16"
         >
           {/* Experience Section */}
-          <div className="group relative">
-            <motion.div
-              className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl blur opacity-75 group-hover:opacity-100 transition duration-1000"
-              animate={{
-                background: [
-                  "linear-gradient(to right, #3b82f6, #8b5cf6)",
-                  "linear-gradient(to left, #3b82f6, #8b5cf6)",
-                ],
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                repeatType: "reverse",
-              }}
-            />
-            <div className="relative bg-gray-900/90 backdrop-blur-xl rounded-xl p-6">
-              <h3 className="text-2xl font-bold text-blue-400 mb-4">Experience</h3>
-              <div className="space-y-4">
-                <div className="relative pl-6 border-l-2 border-blue-400">
-                  <div className="absolute -left-2 top-0 w-4 h-4 bg-blue-400 rounded-full" />
-                  <h4 className="text-lg font-semibold text-blue-300">
-                    Website Design & Development Intern
-                  </h4>
-                  <p className="text-gray-400">Internship Studio (August 2024 - September 2024)</p>
-                  <p className="text-gray-300 mt-2">
-                    Worked on responsive web pages, UI/UX improvements, and web optimization.
-                  </p>
-                  <motion.a
-                    href="https://drive.google.com/file/d/1I-eSo0dRgyC1nmnmfobpilXX6UPIvMys/view"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-4 inline-flex items-center space-x-2 px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg shadow-lg transition-all duration-300"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <span>View Certificate</span>
-                    <FiExternalLink className="w-4 h-4" />
-                  </motion.a>
-                </div>
-              </div>
-            </div>
-          </div>
+<div className="group relative">
+  <motion.div
+    className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl blur opacity-75 group-hover:opacity-100 transition duration-1000"
+    animate={{
+      background: [
+        "linear-gradient(to right, #3b82f6, #8b5cf6)",
+        "linear-gradient(to left, #3b82f6, #8b5cf6)",
+      ],
+    }}
+    transition={{
+      duration: 5,
+      repeat: Infinity,
+      repeatType: "reverse",
+    }}
+  />
+  <div className="relative bg-gray-900/90 backdrop-blur-xl rounded-xl p-6">
+    <h3 className="text-2xl font-bold text-blue-400 mb-4">Experience</h3>
+    <div className="space-y-8">
+      
+      {/* Internship at 5th Dimension Technology */}
+      <div className="relative pl-6 border-l-2 border-blue-400">
+        <div className="absolute -left-2 top-0 w-4 h-4 bg-blue-400 rounded-full" />
+        <h4 className="text-lg font-semibold text-blue-300">
+          MERN Full Stack Developer Intern
+        </h4>
+        <p className="text-gray-400">5th Dimension Technology, Hyderabad (January 2025 – June 2025)</p>
+        <p className="text-gray-300 mt-2">
+          Successfully completed a 6-month internship focusing on full stack development using MERN stack. 
+          Contributed to building scalable web applications, optimizing backend APIs, and improving UI/UX with modern tools and practices.
+        </p>
+        <motion.a
+          href="https://drive.google.com/file/d/1HV5TUqyBWYPSE-hsWZSMx4XY9El9cCxJ/view?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 inline-flex items-center space-x-2 px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg shadow-lg transition-all duration-300"
+          whileHover={{ scale: 1.05 }}
+        >
+          <span>View Certificate</span>
+          <FiExternalLink className="w-4 h-4" />
+        </motion.a>
+      </div>
+
+      {/* Previous Internship */}
+      <div className="relative pl-6 border-l-2 border-blue-400">
+        <div className="absolute -left-2 top-0 w-4 h-4 bg-blue-400 rounded-full" />
+        <h4 className="text-lg font-semibold text-blue-300">
+          Website Design & Development Intern
+        </h4>
+        <p className="text-gray-400">Internship Studio (August 2024 – September 2024)</p>
+        <p className="text-gray-300 mt-2">
+          Worked on responsive web pages, UI/UX improvements, and web optimization.
+        </p>
+        <motion.a
+          href="https://drive.google.com/file/d/1I-eSo0dRgyC1nmnmfobpilXX6UPIvMys/view"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 inline-flex items-center space-x-2 px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg shadow-lg transition-all duration-300"
+          whileHover={{ scale: 1.05 }}
+        >
+          <span>View Certificate</span>
+          <FiExternalLink className="w-4 h-4" />
+        </motion.a>
+      </div>
+
+    </div>
+  </div>
+</div>
 
           {/* Achievements Section */}
           <div className="group relative">
