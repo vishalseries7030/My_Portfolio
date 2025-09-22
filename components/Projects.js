@@ -8,7 +8,7 @@ const projects = [
     description:
       "Revamped the official website for 5th Dimension Technologies, focusing on modern design and improved user experience.",
     techStack: ["Next.js", "Tailwind CSS", "Vercel"],
-    liveLink: "https://5thdt-website-revamp.vercel.app/",
+    liveLink: "https://www.5thdt.com//",
     githubLink: "https://github.com/vishalseries7030",
   },
   {

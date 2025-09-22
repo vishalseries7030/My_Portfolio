@@ -129,7 +129,7 @@ const Hero = () => {
           className="flex flex-wrap justify-center items-center gap-4 mb-12"
         >
           <motion.button
-            onClick={() => window.open("https://drive.google.com/file/d/17Gt6BQOOYRGSNkoyRY67owxQvTWpLMpm/view?usp=drive_link", "_blank")}
+            onClick={() => window.open("https://drive.google.com/file/d/18FP_oShTuWnV4BsWz3gmiSmOOqFNU9KV/view?usp=sharing", "_blank")}
             className="relative group px-8 py-4 rounded-xl overflow-hidden"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
