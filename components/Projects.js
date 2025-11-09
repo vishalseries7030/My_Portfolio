@@ -3,6 +3,16 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const projects = [
+    {
+    name: "DevTask AI – AI-Powered Task Management Platform",
+    description: "Built a full-stack web app using Gemini API for AI-driven task insights and automation.Implemented secure JWT authentication, RESTful APIs, and deployed on Vercel and Render .",
+    techStack: ["React.js","Node.js", "Gemini-API","MongoDB", "Framer Motion", "Vercel","Render"],
+    liveLink: "https://dev-task-ai-frontend.vercel.app/login",
+    githubLink: "https://github.com/vishalseries7030",
+    category: "Web Development",
+    featured: true,
+    gradient: "from-blue-500 via-cyan-500 to-teal-500"
+  },
   {
     name: "5th Dimension Technologies Website",
     description: "Complete website revamp with modern design, improved UX, and cutting-edge animations. Enhanced performance and SEO optimization.",
