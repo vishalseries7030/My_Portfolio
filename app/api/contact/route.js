@@ -14,7 +14,7 @@ export async function POST(req) {
 
         await transporter.sendMail({
             from: process.env.EMAIL,
-            to: process.env.EMAIL, // तुम्हें खुद को email मिलेगी
+            to: process.env.EMAIL, 
             subject: `New Contact Form Submission from ${name}`,
             text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
         });

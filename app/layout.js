@@ -1,4 +1,4 @@
-import Navbar from "../components/Navbar"; // Navbar ko import karo
+import Navbar from "../components/Navbar"; 
 import "./globals.css";
 // import Footer from "../components/Footer"; // ✅ Import Footer
 

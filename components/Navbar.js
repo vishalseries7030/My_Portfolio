@@ -1,27 +1,48 @@
 "use client";
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import { FiMenu, FiX, FiHome, FiUser, FiBriefcase, FiMail } from "react-icons/fi";
+import { FiHome, FiUser, FiBriefcase, FiMail } from "react-icons/fi";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("/");
+  const [activeSection, setActiveSection] = useState("home");
 
-  // Handle scroll effect
+  // Handle scroll effect and active section
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+      
+      // Detect active section
+      const sections = ["home", "about", "skills", "projects", "contact"];
+      const current = sections.find(section => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 100 && rect.bottom >= 100;
+        }
+        return false;
+      });
+      if (current) setActiveSection(current);
     };
+    
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+    setMenuOpen(false);
+  };
+
   const navItems = [
-    { href: "/", text: "Home", icon: FiHome },
-    { href: "/about", text: "About", icon: FiUser },
-    { href: "/projects", text: "Projects", icon: FiBriefcase },
-    { href: "/contact", text: "Contact", icon: FiMail },
+    { href: "home", text: "Home", icon: FiHome },
+    { href: "about", text: "About", icon: FiUser },
+    { href: "skills", text: "Skills", icon: FiBriefcase },
+    { href: "projects", text: "Projects", icon: FiBriefcase },
+    { href: "contact", text: "Contact", icon: FiMail },
   ];
 
   return (
@@ -34,11 +55,11 @@ const Navbar = () => {
       <div className="container mx-auto px-6">
         <div className="flex justify-between items-center py-4">
           {/* Logo with animated gradient */}
-          <Link href="/">
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent hover:from-blue-500 hover:to-purple-600 transition-all duration-300 transform hover:scale-105">
+          <button onClick={() => scrollToSection("home")}>
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent hover:from-blue-500 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 cursor-pointer">
               Portfolio
             </h1>
-          </Link>
+          </button>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
@@ -47,7 +68,7 @@ const Navbar = () => {
                 key={item.href}
                 {...item}
                 active={activeSection === item.href}
-                onClick={() => setActiveSection(item.href)}
+                onClick={() => scrollToSection(item.href)}
               />
             ))}
           </div>
@@ -84,10 +105,7 @@ const Navbar = () => {
               <MobileNavItem
                 key={item.href}
                 {...item}
-                onClick={() => {
-                  setActiveSection(item.href);
-                  setMenuOpen(false);
-                }}
+                onClick={() => scrollToSection(item.href)}
                 active={activeSection === item.href}
               />
             ))}
@@ -99,35 +117,31 @@ const Navbar = () => {
 };
 
 const NavItem = ({ href, text, icon: Icon, active, onClick }) => (
-  <Link href={href}>
+  <button
+    onClick={onClick}
+    className="group relative flex items-center space-x-1 text-lg text-gray-300 hover:text-white cursor-pointer"
+  >
+    <Icon className="w-4 h-4" />
+    <span>{text}</span>
+    {/* Animated underline with gradient */}
     <span
-      onClick={onClick}
-      className="group relative flex items-center space-x-1 text-lg text-gray-300 hover:text-white cursor-pointer"
-    >
-      <Icon className="w-4 h-4" />
-      <span>{text}</span>
-      {/* Animated underline with gradient */}
-      <span
-        className={`absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-blue-400 to-purple-500 transform origin-left transition-all duration-300
-          ${active ? "scale-x-100" : "scale-x-0"} group-hover:scale-x-100`}
-      />
-    </span>
-  </Link>
+      className={`absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-blue-400 to-purple-500 transform origin-left transition-all duration-300
+        ${active ? "scale-x-100" : "scale-x-0"} group-hover:scale-x-100`}
+    />
+  </button>
 );
 
 const MobileNavItem = ({ href, text, icon: Icon, onClick, active }) => (
-  <Link href={href}>
-    <span
-      onClick={onClick}
-      className={`flex items-center space-x-3 px-4 py-2 cursor-pointer transition-all duration-300
-        ${active 
-          ? "bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-white" 
-          : "text-gray-300 hover:bg-gray-800/50"}`}
-    >
-      <Icon className="w-5 h-5" />
-      <span>{text}</span>
-    </span>
-  </Link>
+  <button
+    onClick={onClick}
+    className={`w-full flex items-center space-x-3 px-4 py-2 cursor-pointer transition-all duration-300
+      ${active 
+        ? "bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-white" 
+        : "text-gray-300 hover:bg-gray-800/50"}`}
+  >
+    <Icon className="w-5 h-5" />
+    <span>{text}</span>
+  </button>
 );
 
 export default Navbar;

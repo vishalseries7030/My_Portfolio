@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import ProjectModal from './ProjectModal';
 
 const projects = [
     {
@@ -124,10 +125,22 @@ const categories = ["All", "Web Development", "Full-Stack", "AI/ML", "IoT", "UI/
 const Projects = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const filteredProjects = selectedCategory === "All" 
     ? projects 
     : projects.filter(p => p.category === selectedCategory);
+
+  const openModal = (project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedProject(null);
+  };
 
   return (
     <section className="relative min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white py-20 px-6 overflow-hidden">
@@ -169,21 +182,31 @@ const Projects = () => {
           className="text-center mb-16"
         >
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5, type: "spring" }}
-            className="inline-block mb-4"
+            initial={{ scale: 0, rotate: -180 }}
+            whileInView={{ scale: 1, rotate: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, type: "spring", stiffness: 200 }}
+            className="inline-block mb-6"
           >
-            <span className="text-6xl">🚀</span>
+            <span className="text-6xl animate-float">🚀</span>
           </motion.div>
           <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-gradient">
               Featured Projects
             </span>
           </h1>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            A showcase of innovative solutions spanning web development, AI/ML, IoT, and full-stack applications
-          </p>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed"
+          >
+            A showcase of <span className="text-pink-400 font-semibold">innovative solutions</span> spanning 
+            <span className="text-purple-400 font-semibold"> web development</span>, 
+            <span className="text-blue-400 font-semibold"> AI/ML</span>, and 
+            <span className="text-cyan-400 font-semibold"> full-stack applications</span>
+          </motion.p>
         </motion.div>
 
         {/* Category Filter */}
@@ -422,6 +445,13 @@ const Projects = () => {
           </motion.a>
         </motion.div>
       </div>
+
+      {/* Project Modal */}
+      <ProjectModal 
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
     </section>
   );
 };

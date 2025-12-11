@@ -1,10 +1,53 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaLinkedin, FaGithub, FaTwitter } from 'react-icons/fa';
 
 const Hero = () => {
+  const [displayText, setDisplayText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [counters, setCounters] = useState({ projects: 0, experience: 0, technologies: 0 });
+  const fullText = 'Vishal Payyawar';
+
+  useEffect(() => {
+    if (currentIndex < fullText.length) {
+      const timeout = setTimeout(() => {
+        setDisplayText(prev => prev + fullText[currentIndex]);
+        setCurrentIndex(prev => prev + 1);
+      }, 150);
+      return () => clearTimeout(timeout);
+    }
+  }, [currentIndex, fullText]);
+
+  useEffect(() => {
+    const animateCounters = () => {
+      const targets = { projects: 15, experience: 3, technologies: 50 };
+      const duration = 2000;
+      const steps = 60;
+      const stepTime = duration / steps;
+
+      let step = 0;
+      const timer = setInterval(() => {
+        step++;
+        const progress = step / steps;
+        
+        setCounters({
+          projects: Math.floor(targets.projects * progress),
+          experience: Math.floor(targets.experience * progress),
+          technologies: Math.floor(targets.technologies * progress)
+        });
+
+        if (step >= steps) {
+          clearInterval(timer);
+          setCounters(targets);
+        }
+      }, stepTime);
+    };
+
+    const timeout = setTimeout(animateCounters, 1000);
+    return () => clearTimeout(timeout);
+  }, []);
   const skills = [
     { name: 'React', icon: '⚛️', color: 'from-cyan-400 to-blue-500' },
     { name: 'Node.js', icon: '🟢', color: 'from-green-400 to-emerald-500' },
@@ -27,11 +70,15 @@ const Hero = () => {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white">
-      {/* Background Grid & Orbs */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b10_1px,transparent_1px),linear-gradient(to_bottom,#1e293b10_1px,transparent_1px)] bg-[size:40px_40px]" />
-      <div className="absolute top-20 left-20 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white">
+      {/* Enhanced Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:60px_60px]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)]" />
+      
+      {/* Animated Orbs */}
+      <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-20 right-20 w-[500px] h-[500px] bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-full blur-3xl" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
@@ -47,10 +94,13 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-dark border border-blue-500/30 animate-pulse-glow"
             >
-              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-sm text-gray-300">Available for freelance</span>
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
+              </span>
+              <span className="text-sm text-gray-300 font-medium">Available for Work</span>
             </motion.div>
 
             {/* Heading */}
@@ -63,7 +113,8 @@ const Hero = () => {
               >
                 Hi, I'm{' '}
                 <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 text-transparent bg-clip-text">
-                  Vishal
+                  {displayText}
+                  <span className="animate-pulse">|</span>
                 </span>
                 <motion.span
                   animate={{ rotate: [0, 14, -8, 14, 0] }}
@@ -189,12 +240,17 @@ const Hero = () => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   whileHover={{ y: -8, scale: 1.05, boxShadow: "0px 15px 25px rgba(0,0,0,0.4)" }}
                   transition={{ delay: 0.8 + idx * 0.1, type: 'spring', stiffness: 120 }}
-                  className="p-5 rounded-xl bg-slate-800/50 border border-slate-700/50 backdrop-blur-sm text-center"
+                  className="relative group p-6 rounded-2xl glass-dark hover-lift text-center overflow-hidden"
                 >
-                  <div className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 text-transparent bg-clip-text">
-                    {stat.value}
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="relative z-10">
+                    <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 text-transparent bg-clip-text mb-2">
+                      {idx === 0 ? `${counters.projects}+` : 
+                       idx === 1 ? `${counters.experience}+` : 
+                       `${counters.technologies}+`}
+                    </div>
+                    <div className="text-sm text-gray-400 font-medium">{stat.label}</div>
                   </div>
-                  <div className="text-xs md:text-sm text-gray-400 mt-1">{stat.label}</div>
                 </motion.div>
               ))}
             </div>
@@ -206,12 +262,14 @@ const Hero = () => {
                   key={idx}
                   initial={{ opacity: 0, y: 20, scale: 0.8 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
-                  whileHover={{ y: -6, scale: 1.07, boxShadow: "0px 10px 20px rgba(0,0,0,0.35)" }}
+                  whileHover={{ y: -6, scale: 1.1, rotate: 5 }}
                   transition={{ delay: 1 + idx * 0.05, type: 'spring', stiffness: 120 }}
-                  className="flex flex-col items-center gap-2 p-4 rounded-xl bg-slate-900/50 border border-slate-700/30 backdrop-blur-sm"
+                  className="relative group flex flex-col items-center gap-3 p-4 rounded-xl glass-dark hover-lift animate-float"
+                  style={{ animationDelay: `${idx * 0.2}s` }}
                 >
-                  <span className="text-2xl">{skill.icon}</span>
-                  <span className="text-xs text-gray-400">{skill.name}</span>
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <span className="text-3xl relative z-10 group-hover:scale-110 transition-transform duration-300">{skill.icon}</span>
+                  <span className="text-xs text-gray-300 font-medium relative z-10">{skill.name}</span>
                 </motion.div>
               ))}
             </div>
