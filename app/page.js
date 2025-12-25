@@ -7,7 +7,7 @@ import CustomCursor from '../components/CustomCursor';
 import Hero from "../components/Hero"
 import About from "../components/About"
 import SkillsProgress from "../components/SkillsProgress"
-import Projects from "../components/Projects"
+import Projects from "../components/Projects/Projects-Refactored"
 import ContactForm from "../components/ContactForm"
 import Footer from "../components/Footer"
 
